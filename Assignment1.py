@@ -41,7 +41,7 @@ def objective(trial):
 if __name__ == "__main__":
 
     # Create environment
-    env_name = "CartPole-v1"
+    env_name = "Acrobot-v1"
     env = DiscretizedObservationWrapper(gym.make(env_name), n_bins=10)
     seed = 20
     random.seed(seed)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     # Optuna study configuration
     storage_file = f"sqlite:///optuna/optuna.db"
-    study_name = "cartpole"
+    study_name = "Acrobot"
     full_study_dir_path = f"optuna/{study_name}"
     tpe_sampler = TPESampler(seed=seed) # For reproducibility
     study = optuna.create_study(sampler=tpe_sampler, direction='maximize', study_name=study_name, storage=storage_file, load_if_exists=True)

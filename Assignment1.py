@@ -6,7 +6,6 @@ from optuna.samplers import TPESampler
 from optuna.pruners import MedianPruner
 import json
 
-from gymnasium.envs.toy_text.frozen_lake import generate_random_map
 from deustorl.common import *
 from deustorl.sarsa import Sarsa
 from deustorl.expected_sarsa import ExpectedSarsa
@@ -19,8 +18,8 @@ def objective(trial):
     lr = trial.suggest_float("learning_rate", 1e-5, 1e-1, log=True)
     lr_decay = trial.suggest_float("learning_rate_decay", 0.9 , 1.0,  step=0.01)
     lr_episodes_decay = trial.suggest_categorical("lr_episodes_decay",[100,1_000, 10_000])
-    discount_rate = trial.suggest_float("discount_rate", 0.8 , 1.0, step=0.05)
-    epsilon= trial.suggest_float("epsilon", 0.0, 0.4, step=0.05)
+    discount_rate = trial.suggest_float("discount_rate", 0.9 , 1.0, step=0.05)
+    epsilon= trial.suggest_float("epsilon", 0.0, 0.3, step=0.05)
         	  	
     n_steps = 200_000
 
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     full_study_dir_path = f"optuna/{study_name}"
     tpe_sampler = TPESampler(seed=seed) # For reproducibility
     study = optuna.create_study(sampler=tpe_sampler, direction='maximize', study_name=study_name, storage=storage_file, load_if_exists=True)
-    n_trials = 10 # Normally 50 or 100 at least
+    n_trials = 100 # Normally 50 or 100 at least
 
     # Start the study
     print(f"Searching for the best hyperparameters in {n_trials} trials...")

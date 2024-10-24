@@ -21,7 +21,7 @@ def objective(trial):
     discount_rate = trial.suggest_float("discount_rate", 0.9 , 1.0, step=0.05)
     epsilon= trial.suggest_float("epsilon", 0.0, 0.3, step=0.05)
         	  	
-    n_steps = 200_000
+    n_steps = 500_000
 
     if algo_name == "sarsa":
         algo = Sarsa(env)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     full_study_dir_path = f"optuna/{study_name}"
     tpe_sampler = TPESampler(seed=seed) # For reproducibility
     study = optuna.create_study(sampler=tpe_sampler, direction='maximize', study_name=study_name, storage=storage_file, load_if_exists=True)
-    n_trials = 100 # Normally 50 or 100 at least
+    n_trials = 300 # Normally 50 or 100 at least
 
     # Start the study
     print(f"Searching for the best hyperparameters in {n_trials} trials...")

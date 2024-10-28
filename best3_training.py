@@ -23,8 +23,8 @@ seed = 20
 random.seed(seed)
 env.reset(seed=seed)
 
-n_rounds = 10
-n_steps_per_round = 3_000_000
+n_rounds = 2
+n_steps_per_round = 7_000_000
 
 print("Testing Best Trial")
 total_reward = 0
@@ -36,6 +36,7 @@ for _ in range(n_rounds):
     total_reward += avg_reward
 print("------\r\nAverage reward over {} rounds: {:.4f}\r\n------".format(n_rounds, total_reward/n_rounds))
 input("Press any key to train the next trial...")
+
 
 print("Testing Second Best Trial")
 total_reward = 0
